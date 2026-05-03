@@ -1,0 +1,12 @@
+{
+  "rules": {
+    "presence": {
+      "$uid": {
+        // Any authenticated user can set their own presence
+        ".read":  "auth != null",
+        ".write": "auth != null && auth.uid == $uid",
+        ".validate": "newData.hasChildren(['online', 'lastSeen'])"
+      }
+    }
+  }
+}

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — GameBarterHub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/notification.css">
+  <link rel="stylesheet" href="css/forms.css">
+  <!-- Firebase SDK (Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <!-- Firebase Init -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyD5-g1bjXfgd1w9boHbfLX8EMnt6tr9yuM",
+      authDomain: "gbhub-25a16.firebaseapp.com",
+      projectId: "gbhub-25a16",
+      storageBucket: "gbhub-25a16.firebasestorage.app",
+      messagingSenderId: "1031854442872",
+      appId: "1:1031854442872:web:208bc4663cace89f43608d",
+      measurementId: "G-XV7WMV0Q82"
+    };
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+  </script>
+</head>
+<body>
+
+<!-- Navbar injected by navbar-template.js -->
+
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <a class="auth-logo" href="index.html">GAME<span>BARTERHUB</span></a>
+    <div class="auth-title">Create Account</div>
+    <div class="auth-sub">Join thousands of traders worldwide</div>
+
+    <div class="error-msg"   id="regError"></div>
+    <div class="success-msg" id="regSuccess"></div>
+
+    <!-- Avatar Upload -->
+    <div class="avatar-upload">
+      <div class="avatar-preview" id="regAvatarPreview"
+        onclick="document.getElementById('regAvatarInput').click()">👤</div>
+      <div class="avatar-upload-info">
+        <button class="btn btn-ghost" style="font-size:0.78rem;padding:6px 14px"
+          onclick="document.getElementById('regAvatarInput').click()">Upload Photo</button>
+        <p>JPG, PNG. Max 2MB</p>
+      </div>
+      <input type="file" id="regAvatarInput" accept="image/*" style="display:none"
+        onchange="previewAvatar(this)">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Full Name *</label>
+        <input class="form-input" id="regName" placeholder="Your name" type="text">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Location</label>
+        <input class="form-input" id="regLocation" placeholder="City, Country" type="text">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Email Address *</label>
+      <input class="form-input" id="regEmail" placeholder="you@example.com" type="email">
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Password *</label>
+        <input class="form-input" id="regPass" placeholder="Min. 6 characters" type="password">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Confirm Password *</label>
+        <input class="form-input" id="regPass2" placeholder="Repeat password" type="password">
+      </div>
+    </div>
+
+    <button class="btn btn-primary full-btn" onclick="doRegister()"
+      style="margin-top:8px;padding:12px">Create Account</button>
+
+    <div class="auth-switch">
+      Already have an account? <a href="login.html">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/notification.js"></script>
+<script src="js/navbar-template.js"></script>
+<script>
+  // Allow creating new accounts even while logged in
+  // (Just show a note if already logged in)
+  if (state.currentUser) {
+    const note = document.createElement('div');
+    note.style.cssText = 'background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);border-radius:8px;padding:10px 14px;font-size:0.82rem;color:var(--accent-cyan);margin-bottom:12px;text-align:center';
+    note.innerHTML = `ℹ️ You're logged in as <b>${state.currentUser.name}</b>. You can still create a new account below, or <a href="index.html" style="color:var(--accent-cyan)">go back home</a>.`;
+    document.querySelector('.auth-card').insertBefore(note, document.querySelector('.error-msg'));
+  }
+</script>
+</body>
+</html>
